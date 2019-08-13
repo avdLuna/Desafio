@@ -5,11 +5,11 @@ import java.util.Objects;
 public class Hashtag implements Comparable<Hashtag>{
 
     private String name;
-    private int values;
+    private int value;
 
-    public Hashtag(String name, int values) {
+    public Hashtag(String name, int value) {
         this.name = name;
-        this.values = values;
+        this.value = value;
     }
 
     public String getName() {
@@ -20,12 +20,12 @@ public class Hashtag implements Comparable<Hashtag>{
         this.name = name;
     }
 
-    public int getValues() {
-        return values;
+    public int getValue() {
+        return value;
     }
 
-    public void setValues(int values) {
-        this.values = values;
+    public void setValue(int value) {
+        this.value = value;
     }
 
     @Override
@@ -43,10 +43,10 @@ public class Hashtag implements Comparable<Hashtag>{
 
     @Override
     public int compareTo(Hashtag hashtag) {
-        if (this.values < hashtag.values) {
+        if (this.value < hashtag.value) {
             return 1;
         }
-        if (this.values > hashtag.values) {
+        if (this.value > hashtag.value) {
             return -1;
         }
         return 0;

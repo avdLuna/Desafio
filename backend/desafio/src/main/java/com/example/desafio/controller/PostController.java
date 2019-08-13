@@ -20,9 +20,6 @@ public class PostController {
     @GetMapping("/posts/search/{string}")
     public ResponseEntity<List<Hashtag>> getTopHashtags(@PathVariable String string){
         List<Hashtag> topHashtags = this.service.getTopHashtags(string);
-        if(topHashtags.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
         return new ResponseEntity<>(topHashtags, HttpStatus.OK);
     }
 }
