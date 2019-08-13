@@ -4,7 +4,6 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>Starter Template - Materialize</title>
 
   <!-- CSS  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -19,20 +18,21 @@
       <br><br>
       <h1 class="header center orange-text">Top 10 Hashtags</h1>
       <div class="row center">
-        <div class="input-field ">
+        <div>
           <h5>Digite uma palavra para pesquisa</h5>
-          <input #termInput type="text" class="validate">
+          <input #termInput [formControl]="searchedTerm" type="text">
+          <label *ngIf="searchedTerm.invalid" [ngClass] = "'error'"> Digite pelo menos uma palavra </label>
         </div>
       </div>
       <div class="row center">
-        <button class="btn-large waves-effect waves-light orange" (click)="getHashtags()">Buscar</button>
+        <button class="btn-large waves-effect waves-light orange" (click)="getHashtags()" [disabled]="!searchedTerm.valid">Buscar</button>
       </div>
       <br><br>
 
     </div>
   </div>
   <div class="container">
-    <div class="row" [hidden]="notHashtagData">
+    <div class="row" [hidden]="hashtags === undefined || hashtags.length === 0">
       <div>
         <div #barChart id="myChart"></div>
       </div>

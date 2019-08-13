@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit,ViewChild, ElementRef} from '@angular/core';
 import { RestService } from '../rest.service';
 import * as d3 from 'd3';
-import * as $ from 'jquery';
-//declare var M: any;
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-hashtags',
@@ -12,37 +11,23 @@ import * as $ from 'jquery';
 export class HashtagsComponent implements OnInit {
 
   hashtags: any = undefined;
-  term: string;
-  notHashtagData: boolean;
-  notData: boolean;
+  searchedTerm = new FormControl('', Validators.required);
 
   @ViewChild('barChart')
   private chartContainer: ElementRef;
-  @ViewChild('termInput') 
-  private termInput: ElementRef;
 
   constructor(public rest: RestService) { }
 
   ngOnInit() {
-    this.notHashtagData = true;
-    this.notData = false;
-    //this.getHashtags('amor');
   }
 
   public getHashtags() {
     this.hashtags = [];
-    console.log(this.termInput.nativeElement.value);
-    this.rest.getTopHashtags(this.termInput.nativeElement.value).subscribe((data: {}) => {
-        console.log(data);
+    this.rest.getTopHashtags(this.searchedTerm.value).subscribe((data: {}) => {
         this.hashtags = data;
       if(this.hashtags.length > 0){ 
         this.createChart();
-        this.notHashtagData = false;
-        this.notData = false;
-      } else {
-        this.notHashtagData = true;
-        this.notData = false;
-      } 
+      }
     });
   }
 
